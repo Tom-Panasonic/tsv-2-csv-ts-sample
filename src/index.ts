@@ -3,6 +3,7 @@ import * as path from "path";
 
 /**
  * TSVファイルをCSV形式に変換する関数
+ * 各カラムを必ずダブルクォートで囲む
  * @param tsvText - TSV形式の文字列
  * @returns CSV形式の文字列
  */
@@ -24,13 +25,10 @@ export function tsvToCsv(tsvText: string): string {
         .map((field) => {
           // null/undefinedは空文字に
           if (field == null || field === "undefined" || field === "null")
-            return "";
+            field = "";
 
-          // フィールドにカンマ、ダブルクォート、改行が含まれる場合はクォートする
-          if (/[",\r\n]/.test(field)) {
-            return `"${field.replace(/"/g, '""')}"`;
-          }
-          return field;
+          // フィールド内のダブルクォートは2つにエスケープし、必ずダブルクォートで囲む
+          return `"${String(field).replace(/"/g, '""')}"`;
         })
         .join(",");
     })
