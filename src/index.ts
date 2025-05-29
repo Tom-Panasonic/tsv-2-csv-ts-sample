@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { readFileWithoutBOM } from "./bom_replace";
 
 /**
  * TSVファイルをCSV形式に変換する関数
@@ -43,4 +44,11 @@ if (require.main === module) {
   const csvText = tsvToCsv(tsvText);
   fs.writeFileSync(csvPath, csvText, "utf-8");
   console.log(`Converted ${tsvPath} to ${csvPath}`);
+
+  const tsvBomPath = path.resolve(__dirname, "../data/test_bom.tsv");
+  const csvBomPath = path.resolve(__dirname, "../data/test_bom.csv");
+  const tsvBomText = readFileWithoutBOM(tsvBomPath);
+  const csvBomText = tsvToCsv(tsvBomText);
+  fs.writeFileSync(csvBomPath, csvBomText, "utf-8");
+  console.log(`Converted ${tsvBomPath} to ${csvBomPath}`);
 }
