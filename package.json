@@ -18,10 +18,10 @@
   "files": [
     "dist"
   ],
-  "outDir": "dist",
+  "outDir": "./dist",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "module": "commonjs",
     "target": "es2019",
     "esModuleInterop": true,
